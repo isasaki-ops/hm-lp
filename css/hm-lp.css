@@ -1,0 +1,435 @@
+/*
+ * hm-lp.css
+ * 悪魔が来たりて、ヘヴィメダル LP — 追加CSS
+ * WordPress 管理画面「外観 > カスタマイズ > 追加CSS」または子テーマ style.css に貼り付けてください
+ *
+ * カラーパレット（ミリオンゴッド神堂 + ダークファンタジー・黒金）
+ *   背景         : #0d0d0d  #111  #1a1a1a
+ *   ゴールド     : #d4af37  #e8c96a  #f5d060
+ *   ゴールド縁   : #5a4a20  #7a6030  #a08030
+ *   レッド（終焉): #8b0000  #b22222  #ff4444
+ *   テキスト     : #e0e0e0  #cccccc  #aaaaaa
+ */
+
+/* ============================================================
+   0. 基本リセット / LP全体
+   ============================================================ */
+.hm-lp-wrap {
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* セクション共通 */
+.hm-section {
+  padding: 48px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   1. ヒーローセクション補助
+   ============================================================ */
+
+/* SWELLフルワイドブロック内タイトル装飾 */
+.hm-hero-title {
+  font-size: clamp(22px, 6vw, 52px);
+  font-weight: 900;
+  color: #f5d060;
+  text-shadow:
+    0 0 12px rgba(212, 175, 55, 0.8),
+    0 0 30px rgba(212, 175, 55, 0.4),
+    2px 2px 0 #3a2a00;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+.hm-hero-subtitle {
+  font-size: clamp(13px, 3vw, 22px);
+  color: #e8c96a;
+  letter-spacing: 0.15em;
+  margin: 0 0 20px;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+.hm-hero-period {
+  font-size: clamp(12px, 2.5vw, 16px);
+  color: #cccccc;
+  background: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  padding: 4px 16px;
+  border: 1px solid #5a4a20;
+  border-radius: 3px;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   2. セクション見出し共通
+   ============================================================ */
+.hm-section-title {
+  text-align: center;
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 900;
+  color: #e8c96a;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+/* 金の下線 */
+.hm-section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  margin: 12px auto 0;
+}
+
+.hm-section-lead {
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   3. ロードマップ（② 開催ロードマップ）
+   ============================================================ */
+.hm-roadmap-wrap {
+  background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 32px 20px;
+  margin: 0 auto;
+}
+
+.hm-roadmap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+/* WAVEカード */
+.hm-wave {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(145deg, #1e1e1e, #161616);
+  color: #e8c96a;
+  border: 1px solid #5a4a20;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: bold;
+  min-width: 76px;
+  text-align: center;
+  position: relative;
+  box-shadow:
+    0 0 6px rgba(212, 175, 55, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.hm-wave:hover {
+  box-shadow:
+    0 0 14px rgba(212, 175, 55, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.hm-wave-label {
+  font-size: 11px;
+  font-weight: normal;
+  color: #7a6030;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.hm-wave-name {
+  font-size: 14px;
+  font-weight: 900;
+  color: #e8c96a;
+  line-height: 1.1;
+}
+
+.hm-wave span,
+.hm-wave .hm-wave-date {
+  display: block;
+  font-size: 10px;
+  color: #888;
+  font-weight: normal;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* 最後の審判カード */
+.hm-wave.hm-final {
+  background: linear-gradient(145deg, #2a0808, #1a0404);
+  color: #ff6b6b;
+  border-color: #8b0000;
+  box-shadow:
+    0 0 10px rgba(139, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 100, 100, 0.1);
+  min-width: 90px;
+}
+
+.hm-wave.hm-final .hm-wave-name {
+  color: #ff6b6b;
+}
+
+.hm-wave.hm-final .hm-wave-date {
+  color: #994444;
+}
+
+.hm-wave.hm-final:hover {
+  box-shadow:
+    0 0 20px rgba(200, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 100, 100, 0.15);
+}
+
+/* 矢印 */
+.hm-arrow {
+  color: #3a3a3a;
+  font-size: 20px;
+  line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   4. 結果記事リスト WAVEタブ補助（③）
+   ============================================================ */
+
+/* SWELLのタブブロックにダークテーマを当てる際の補助クラス */
+.hm-tab-wrap .swell-block-tab__menu {
+  background: #111;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.hm-tab-wrap .swell-block-tab__menu-item {
+  color: #888;
+  border-color: transparent;
+}
+
+.hm-tab-wrap .swell-block-tab__menu-item.is-active {
+  color: #e8c96a;
+  border-color: #d4af37;
+}
+
+.hm-tab-wrap .swell-block-tab__content {
+  background: #111;
+  border: 1px solid #222;
+  border-top: none;
+}
+
+/* ============================================================
+   5. 最後の審判 進出店舗（④）
+   ============================================================ */
+.hm-finalists {
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0d0d0d 0%, #150505 100%);
+  border: 1px solid #3a0808;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景グロー演出 */
+.hm-finalists::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8b0000, transparent);
+}
+
+.hm-finalists .hm-section-title {
+  color: #ff6b6b;
+  text-shadow: 0 0 16px rgba(200, 0, 0, 0.5);
+}
+
+.hm-finalists .hm-section-title::after {
+  background: linear-gradient(90deg, transparent, #8b0000, transparent);
+}
+
+/* 店舗リスト */
+.hm-hall-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  max-width: 640px;
+}
+
+.hm-hall-list li {
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #1a0808, #120404);
+  border: 1px solid #3a1010;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #ddaaaa;
+  letter-spacing: 0.05em;
+  position: relative;
+  padding-left: 28px;
+  transition: background 0.2s;
+}
+
+.hm-hall-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 10px;
+  color: #8b0000;
+  font-size: 12px;
+}
+
+.hm-hall-list li:hover {
+  background: linear-gradient(135deg, #220a0a, #160606);
+}
+
+/* WAVEラベル（WAVE別グループ化する場合） */
+.hm-hall-wave-label {
+  font-size: 11px;
+  color: #8b0000;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 20px 0 8px;
+  padding-left: 4px;
+  border-left: 2px solid #8b0000;
+  padding-left: 8px;
+}
+
+/* ============================================================
+   6. バナー広告枠（⑤）補助
+   ============================================================ */
+.hm-banner-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px 0;
+}
+
+.hm-banner-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid #222;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.hm-banner-grid a:hover img {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   7. フッター補助（⑥）
+   ============================================================ */
+.hm-footer {
+  text-align: center;
+  padding: 32px 16px;
+  border-top: 1px solid #222;
+  color: #666;
+  font-size: 12px;
+}
+
+.hm-footer a {
+  color: #7a6030;
+  text-decoration: none;
+}
+
+.hm-footer a:hover {
+  color: #e8c96a;
+}
+
+.hm-sns-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 16px;
+  border: 1px solid #333;
+  border-radius: 20px;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 12px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.hm-sns-link:hover {
+  border-color: #666;
+  color: #e0e0e0;
+}
+
+/* ============================================================
+   8. スマホ対応（〜767px）
+   ============================================================ */
+@media (max-width: 767px) {
+  .hm-section {
+    padding: 32px 16px;
+  }
+
+  /* ロードマップ：2段折り返しを許容 */
+  .hm-roadmap {
+    gap: 4px;
+  }
+
+  .hm-wave {
+    min-width: 56px;
+    font-size: 11px;
+    padding: 7px 8px;
+  }
+
+  .hm-wave-name {
+    font-size: 12px;
+  }
+
+  .hm-wave.hm-final {
+    min-width: 72px;
+  }
+
+  .hm-arrow {
+    font-size: 14px;
+  }
+
+  /* バナーグリッド：2列 */
+  .hm-banner-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* 進出店舗：1列 */
+  .hm-hall-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   9. ヒーロービジュアル用フルワイドブロック補助
+      （SWELL「フルワイドブロック」のmin-height等はここで調整）
+   ============================================================ */
+.hm-hero-fullwide {
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .hm-hero-fullwide {
+    min-height: 50vh;
+  }
+}
