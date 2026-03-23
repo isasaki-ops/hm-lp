@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悪魔が来たりて、ヘヴィーメダル | Season 1 ミリオンゴッド神堕とし編</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- パーティクルキャンバス -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="header-logo">SABBATH ENTERTAINMENT</span>
+      <nav class="header-nav">
+        <a href="#about">概要</a>
+        <a href="#pelorina">ペロリナ</a>
+        <a href="#schedule">スケジュール</a>
+        <a href="#machine">対象機種</a>
+        <a href="#rules">ルール</a>
+        <a href="#entry">エントリー</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section class="hero" id="top">
+    <!-- 背景：ゴッドキャラ -->
+    <div class="hero-bg-god">
+      <img src="image/ps_god_chara.png" alt="ミリオンゴッド 神像" class="hero-god-img">
+    </div>
+    <div class="hero-bg-overlay"></div>
+
+    <div class="hero-layout">
+      <!-- テキストエリア -->
+      <div class="hero-content">
+        <p class="hero-eyecatch">SEASON 1 ミリオンゴッド神堕とし編</p>
+        <h1 class="hero-title">
+          <span class="title-line1">悪魔が来たりて、</span>
+          <span class="title-line2">ヘヴィーメダル</span>
+        </h1>
+        <div class="hero-cross-line"></div>
+        <p class="hero-subtitle">兎味ペロリナ vs ヨハネの黙示録 4騎士団</p>
+        <p class="hero-period">2025.5.10 <span>—</span> 6.14</p>
+        <div class="hero-machine-badge">
+          <span class="machine-badge-label">対象機種</span>
+          <p class="machine-badge-name">ミリオンゴッド -神々の軌跡-</p>
+        </div>
+        <a href="#entry" class="btn-primary">エントリーはこちら</a>
+      </div>
+
+      <!-- ペロリナ画像エリア -->
+      <div class="hero-chara">
+        <img src="image/DSC_8143a.jpg" alt="兎味ペロリナ" class="hero-chara-img">
+        <div class="hero-chara-glow"></div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <span></span><span></span><span></span>
+    </div>
+  </section>
+
+  <!-- 概要セクション -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">ABOUT</p>
+        <h2 class="section-title">企画概要</h2>
+        <div class="divider-cross"></div>
+      </div>
+      <div class="about-cards">
+        <div class="about-card" data-delay="0">
+          <div class="about-icon">⚔</div>
+          <h3>新取材企画</h3>
+          <p>兎味ペロリナ率いる<strong>サバトエンターテイメント</strong>主催の、全く新しいパチスロ取材企画。ホール様の稼働を最大限に盛り上げます。</p>
+        </div>
+        <div class="about-card" data-delay="100">
+          <div class="about-icon">🎰</div>
+          <h3>大型機種導入支援</h3>
+          <p>ホール様が年間で最も力を入れたい<strong>「大型機種の導入時」</strong>に稼働の底支えを実現。4/20導入のミリオンゴッドに完全対応。</p>
+        </div>
+        <div class="about-card" data-delay="200">
+          <div class="about-icon">👑</div>
+          <h3>GW明け稼働対策</h3>
+          <p>GW後の稼働低下は業界共通の課題。<strong>5月10日〜6月14日</strong>の全5フェーズで継続的な集客インパクトを生み出します。</p>
+        </div>
+      </div>
+
+      <div class="story-box">
+        <div class="story-box-inner">
+          <h3 class="story-title">イメージ設定</h3>
+          <p class="story-text">悪魔のラスボス<em>兎味ペロリナ</em>を、<br>ヨハネの黙示録の<em>4騎士団</em>が討つ——</p>
+          <p class="story-desc">各週ごとに騎士団が出陣し、全4章の戦いを経て<br>6月13日・14日の<strong>「最後の審判」</strong>で真の覇者が決まる。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ペロリナ紹介セクション -->
+  <section class="section pelorina" id="pelorina">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">HOST CHARACTER</p>
+        <h2 class="section-title">兎味ペロリナ</h2>
+        <div class="divider-cross"></div>
+        <p class="section-desc">サバトエンターテイメント主催者 / 悪魔のラスボス</p>
+      </div>
+
+      <div class="pelorina-main">
+        <div class="pelorina-main-photo">
+          <img src="image/DSC_8094a.jpg" alt="兎味ペロリナ" class="pelorina-big-img">
+          <div class="pelorina-name-tag">
+            <span>兎味ペロリナ</span>
+            <span class="pelorina-en">Usami Pelorina</span>
+          </div>
+        </div>
+        <div class="pelorina-main-text">
+          <div class="pelorina-badge">SABBATH ENTERTAINMENT</div>
+          <h3 class="pelorina-catch">悪魔のラスボス、<br>ここに降臨。</h3>
+          <p class="pelorina-desc">
+            サバトエンターテイメント主催のパチスロ取材キャラクター。<br>
+            今回の企画では「悪魔のラスボス」として参加ホールの4騎士団に挑まれる存在。
+          </p>
+          <p class="pelorina-desc">
+            企画スタート時と最終結果はペロリナ本人からのSNSポストを実施。<br>
+            期間中はサバト公式・メンバー全員で拡散し、強力な集客導線を形成します。
+          </p>
+          <ul class="pelorina-features">
+            <li><span>✦</span> 企画スタート・最終結果のSNSポスト</li>
+            <li><span>✦</span> 期間中サバトメンバーによる継続拡散</li>
+            <li><span>✦</span> 優勝ホールへのオリジナルシール贈呈</li>
+            <li><span>✦</span> 「ペロリナポスト権」付与（最後の審判進出ホール）</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- フォトギャラリー -->
+      <div class="photo-gallery">
+        <div class="gallery-item" data-delay="0">
+          <img src="image/DSC_8139a.jpg" alt="兎味ペロリナ">
+        </div>
+        <div class="gallery-item" data-delay="100">
+          <img src="image/DSC_8145a.jpg" alt="兎味ペロリナ">
+        </div>
+        <div class="gallery-item" data-delay="200">
+          <img src="image/DSC_8159a.jpg" alt="兎味ペロリナ">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- スケジュールセクション -->
+  <section class="section schedule" id="schedule">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">SCHEDULE</p>
+        <h2 class="section-title">開催スケジュール</h2>
+        <div class="divider-cross"></div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item" data-chapter="I">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">5/10 — 5/16</span>
+            <h3 class="timeline-title">第一の騎士達</h3>
+            <p>The First Horsemen</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-chapter="II">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">5/17 — 5/23</span>
+            <h3 class="timeline-title">第二の騎士達</h3>
+            <p>The Second Horsemen</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-chapter="III">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">5/24 — 5/30</span>
+            <h3 class="timeline-title">第三の騎士達</h3>
+            <p>The Third Horsemen</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-chapter="IV">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">5/31 — 6/6</span>
+            <h3 class="timeline-title">第四の騎士達</h3>
+            <p>The Fourth Horsemen</p>
+          </div>
+        </div>
+        <div class="timeline-item final" data-chapter="∞">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">6/13 — 6/14</span>
+            <h3 class="timeline-title">最後の審判</h3>
+            <p>The Final Judgement — 覇者決定戦</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 機種紹介セクション -->
+  <section class="section machine-section" id="machine">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">TARGET MACHINE</p>
+        <h2 class="section-title">対象機種</h2>
+        <div class="divider-cross"></div>
+      </div>
+
+      <div class="machine-layout">
+        <div class="machine-img-wrap">
+          <div class="machine-glow-ring"></div>
+          <img src="image/ps_god_body.png" alt="ミリオンゴッド -神々の軌跡-" class="machine-img">
+        </div>
+        <div class="machine-info">
+          <p class="machine-info-label">4/20 導入開始</p>
+          <h3 class="machine-info-name">ミリオンゴッド<br><span>-神々の軌跡-</span></h3>
+          <p class="machine-info-desc">
+            年間で最も力を入れるべき大型機種の導入タイミングに、この企画で稼働を最大化。<br>
+            GW明けの稼働対策として、業界最大のインパクトを生み出します。
+          </p>
+          <div class="machine-entry-info">
+            <div class="machine-entry-item">
+              <span class="entry-label">エントリー費用</span>
+              <span class="entry-val">¥10,000 <em>/台</em></span>
+            </div>
+            <div class="machine-entry-item">
+              <span class="entry-label">対象期間</span>
+              <span class="entry-val">5/10 — 6/14</span>
+            </div>
+          </div>
+          <a href="#entry" class="btn-secondary">エントリーを検討する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ルールセクション -->
+  <section class="section rules" id="rules">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">RULES</p>
+        <h2 class="section-title">ルール</h2>
+        <div class="divider-cross"></div>
+      </div>
+
+      <div class="rules-grid">
+        <div class="rule-card">
+          <span class="rule-num">01</span>
+          <h3>2日エントリー制</h3>
+          <p>参加ホールは該当する期間中に<strong>好きな日程で2日エントリー</strong>可能。柔軟な日程選択でホールの都合に合わせて参加できます。</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-num">02</span>
+          <h3>総差玉バトル</h3>
+          <p>各週のエントリーホール毎に<strong>総差玉を競争</strong>。台当たり表示での集計も対応。すべてのホールが平等に戦える設計。</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-num">03</span>
+          <h3>TOP5進出制</h3>
+          <p>各週の<strong>TOP5ホール</strong>が「最後の審判」へ進出。同一ホールが2回TOP5に進んでも問題なし。</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-num">04</span>
+          <h3>最後の審判</h3>
+          <p>進出ホールが集結し<strong>2日間で真の覇者</strong>を決定。最後の勝者——それはキリストか？</p>
+        </div>
+      </div>
+
+      <div class="cost-section">
+        <h3 class="cost-title">エントリー費用</h3>
+        <div class="cost-box">
+          <div class="cost-item">
+            <span class="cost-label">ゴッド1台あたり</span>
+            <span class="cost-price">¥10,000</span>
+          </div>
+        </div>
+        <div class="cost-merit-grid">
+          <div class="merit-item">
+            <span class="merit-icon">💎</span>
+            <p>期間中最低2回エントリー可<br><strong>1台あたり販促費 ¥5,000</strong></p>
+          </div>
+          <div class="merit-item">
+            <span class="merit-icon">🏆</span>
+            <p>最後の審判進出時<br><strong>1台あたり販促費 ¥3,333</strong></p>
+          </div>
+          <div class="merit-item">
+            <span class="merit-icon">⚡</span>
+            <p>1回目勝利時は<br><strong>2エントリー目で利益確保も可能</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 特典セクション -->
+  <section class="section benefits" id="benefits">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">BENEFITS</p>
+        <h2 class="section-title">優勝ホールへの特典</h2>
+        <div class="divider-cross"></div>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card gold">
+          <div class="benefit-icon">🎖</div>
+          <h3>ペロリナオリジナルシール</h3>
+          <p>認定ホール証明として<br><strong>100枚贈呈</strong></p>
+        </div>
+        <div class="benefit-card silver">
+          <div class="benefit-icon">📣</div>
+          <h3>ペロリナポスト権</h3>
+          <p>最後の審判進出ホールは<br><strong>2026年中に1回使える</strong><br>ペロリナ公式ポスト権を付与</p>
+        </div>
+        <div class="benefit-card bronze">
+          <div class="benefit-icon">⭐</div>
+          <h3>来店特別価格</h3>
+          <p>サバトメンバー来店が<br>通常12万円 → <strong>10万円</strong><br>（直販価格）</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- エントリーセクション -->
+  <section class="section entry" id="entry">
+    <div class="entry-bg">
+      <img src="image/DSC_8154a.jpg" alt="" class="entry-bg-img">
+      <div class="entry-bg-overlay"></div>
+    </div>
+    <div class="container">
+      <div class="entry-box">
+        <p class="entry-eyecatch">NOW RECRUITING</p>
+        <h2 class="entry-title">参加ホール募集中</h2>
+        <p class="entry-text">
+          GW明けの稼働対策に、最大限のインパクトを。<br>
+          ミリオンゴッド-神々の軌跡-の導入店舗様、今すぐエントリーを。
+        </p>
+        <div class="entry-note">
+          <p>※ データ集計は外部データサイトでの確認、もしくはホールコンデータの写真が必要<br>（台番号・IN枚数・差枚数の3項目）</p>
+        </div>
+        <a href="mailto:info@sabbath-ent.jp" class="btn-primary btn-large">エントリー申し込み</a>
+        <p class="entry-contact">お問い合わせ：サバトエンターテイメント</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-logo">SABBATH ENTERTAINMENT</p>
+      <p class="footer-copy">主催：サバトエンターテイメント / 監修：辰巳出版</p>
+      <p class="footer-copy">&copy; 2025 Sabbath Entertainment. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
