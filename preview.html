@@ -104,25 +104,38 @@
     .finalist-box { text-align: center; }
     .hall-list-single { text-align: left; } /* リストは左揃えを維持 */
 
-    /* ── ambient warm glow ── */
+    /* ── セクション背景 ambient glow（背景画像の上に重ねる演出オーバーレイ） ── */
     .schedule { position: relative; }
     .schedule::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 10%, rgba(180,100,0,0.10) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .about::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(180,120,0,0.08) 0%, transparent 50%);
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(200,130,0,0.14) 0%, transparent 55%);
       pointer-events: none;
       z-index: 0;
     }
     .about { position: relative; }
+    .about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(200,140,0,0.12) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
     .about .container { position: relative; z-index: 1; }
+    .wave-results { position: relative; }
+    .wave-results::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,40,100,0.15) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wave-results .container { position: relative; z-index: 1; }
+    .pelorina { position: relative; }
+    .pelorina .container { position: relative; z-index: 1; }
 
     /* ── 派手な区切り装飾 ── */
     .fancy-divider {
@@ -146,10 +159,47 @@
       filter: drop-shadow(0 0 8px rgba(201,162,39,0.8));
     }
 
-    /* ── セクション背景強化 ── */
-    .about    { background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-mid) 60%, var(--bg-dark) 100%); }
-    .pelorina { background: var(--bg-dark); }
-    .schedule { background: linear-gradient(180deg, var(--bg-dark), var(--bg-mid) 50%, var(--bg-dark)); }
+    /* ── セクション背景強化：CSS生成（外部画像不使用） ── */
+
+    /* 炎のゆらめきアニメ */
+    @keyframes flamePulse {
+      0%, 100% { opacity: 0.55; transform: scaleY(1.00) scaleX(1.00); }
+      33%       { opacity: 0.80; transform: scaleY(1.04) scaleX(0.98); }
+      66%       { opacity: 0.65; transform: scaleY(0.97) scaleX(1.02); }
+    }
+    @keyframes deepPulse {
+      0%, 100% { opacity: 0.55; }
+      50%       { opacity: 0.90; }
+    }
+    @keyframes mysticDrift {
+      0%, 100% { opacity: 0.60; transform: translateX(-50%) scale(1.00); }
+      50%       { opacity: 0.90; transform: translateX(-50%) scale(1.06); }
+    }
+
+    /* === HERO：炎と闇、悪魔の降臨 === */
+    .hero {
+      background:
+        radial-gradient(ellipse 110% 50% at 50% -5%,  rgba(200,55,0,0.30) 0%, transparent 55%),
+        radial-gradient(ellipse 55%  70% at 10% 100%, rgba(160,40,0,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 55%  70% at 90% 100%, rgba(120,30,0,0.18) 0%, transparent 55%),
+        linear-gradient(180deg, #0a0201 0%, #0e0302 40%, #07010e 100%) !important;
+    }
+
+    /* === 企画概要：石造神殿・金の炬火 === */
+    .about {
+      background:
+        radial-gradient(ellipse 90% 40% at 50% 0%,   rgba(180,130,0,0.14) 0%, transparent 55%),
+        repeating-linear-gradient(0deg,
+          transparent 0px, transparent 79px,
+          rgba(130,95,0,0.04) 79px, rgba(130,95,0,0.04) 80px),
+        repeating-linear-gradient(90deg,
+          transparent 0px, transparent 119px,
+          rgba(130,95,0,0.04) 119px, rgba(130,95,0,0.04) 120px),
+        linear-gradient(180deg, #070502 0%, #0e0b03 60%, #070502 100%) !important;
+      position: relative;
+    }
+
+    /* === 対象機種：深淵のダーク（GOD WATERMARK付き） === */
     .machine-section {
       background: var(--bg-dark);
       overflow: hidden;
@@ -166,18 +216,88 @@
       pointer-events: none;
       z-index: 0;
     }
-    .wave-results { background: linear-gradient(180deg, var(--bg-dark), var(--bg-mid)); }
-    .finalists    { background: linear-gradient(180deg, var(--bg-dark), rgba(40,0,0,0.6) 50%, var(--bg-dark)); position: relative; overflow: hidden; }
-    .banners      { background: var(--bg-dark); }
 
-    .finalists::before {
+    /* === ペロリナ：深紫の悪魔神殿 === */
+    .pelorina {
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 20%,  rgba(80,0,120,0.20) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 15% 80%,  rgba(60,0,90,0.15)  0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 85% 80%,  rgba(60,0,90,0.15)  0%, transparent 50%),
+        repeating-linear-gradient(45deg,
+          transparent 0px, transparent 39px,
+          rgba(80,0,110,0.03) 39px, rgba(80,0,110,0.03) 40px),
+        linear-gradient(180deg, #05030a 0%, #0a0416 60%, #05030a 100%) !important;
+      position: relative;
+    }
+    .pelorina::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 80%; height: 50%;
+      background: radial-gradient(ellipse, rgba(100,0,150,0.14) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      animation: mysticDrift 5s ease-in-out infinite;
+    }
+    .pelorina .container { position: relative; z-index: 1; }
+
+    /* === 開催スケジュール：荘厳な儀式場・金の神殿 === */
+    .schedule {
+      background:
+        radial-gradient(ellipse 80% 35% at 50% 0%,   rgba(180,120,0,0.16) 0%, transparent 50%),
+        radial-gradient(ellipse 25% 100% at 3%  50%,  rgba(120,80,0,0.08)  0%, transparent 60%),
+        radial-gradient(ellipse 25% 100% at 97% 50%,  rgba(120,80,0,0.08)  0%, transparent 60%),
+        repeating-linear-gradient(0deg,
+          transparent 0px, transparent 99px,
+          rgba(100,70,0,0.03) 99px, rgba(100,70,0,0.03) 100px),
+        repeating-linear-gradient(90deg,
+          transparent 0px, transparent 79px,
+          rgba(100,70,0,0.03) 79px, rgba(100,70,0,0.03) 80px),
+        linear-gradient(180deg, #080602 0%, #0e0b02 50%, #080602 100%) !important;
+      position: relative;
+    }
+    .schedule .container { position: relative; z-index: 1; }
+
+    /* === WAVE結果：深淵の間・審判前夜 === */
+    .wave-results {
+      background:
+        radial-gradient(ellipse 70% 40% at 50% 10%,  rgba(0,25,70,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 50% at 20% 80%,  rgba(0,15,50,0.15)  0%, transparent 50%),
+        linear-gradient(180deg, #040408 0%, #050710 60%, #040408 100%) !important;
+      position: relative;
+    }
+    .wave-results::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(139,0,0,0.18) 0%, transparent 65%);
-      pointer-events: none;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,30,90,0.16) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+      animation: deepPulse 4s ease-in-out infinite;
+    }
+    .wave-results .container { position: relative; z-index: 1; }
+
+    /* === 最後の審判：炎の審判場 === */
+    .finalists {
+      background:
+        radial-gradient(ellipse 90% 50% at 50% 0%,   rgba(180,20,0,0.32) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 60% at 10% 100%, rgba(140,20,0,0.22)  0%, transparent 55%),
+        radial-gradient(ellipse 40% 60% at 90% 100%, rgba(140,20,0,0.22)  0%, transparent 55%),
+        radial-gradient(ellipse 60% 30% at 50% 100%, rgba(200,40,0,0.14)  0%, transparent 50%),
+        linear-gradient(180deg, #0a0101 0%, #100202 45%, #0a0101 100%) !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .finalists::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 70%; height: 45%;
+      background: radial-gradient(ellipse, rgba(180,0,0,0.18) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      animation: flamePulse 3.5s ease-in-out infinite;
     }
     .finalists .container { position: relative; z-index: 1; }
+
+    .banners { background: var(--bg-dark); }
 
     /* ── 企画概要：囲みなし 2カラムレイアウト ── */
     .about-story-layout {
@@ -333,6 +453,63 @@
       .finalist-god-img-wrap { max-width: 240px; margin: 0 auto; }
     }
 
+    /* ── スケジュール：ドット内のローマ数字を非表示 ── */
+    .timeline-dot::before { content: '' !important; display: none !important; }
+
+    /* ── スケジュール：タイトルをセンター揃えに ── */
+    .timeline-title { text-align: center !important; }
+
+    /* ── スケジュール：各囲みの下矢印アニメーション ── */
+    @keyframes arrowFloat {
+      0%, 100% { transform: translateY(0) rotate(45deg); opacity: 0.65; }
+      50%       { transform: translateY(5px) rotate(45deg); opacity: 0.95; }
+    }
+
+    /* ── スケジュール：br.sp-br（最後の審判日付の改行制御） ── */
+    br.sp-br   { display: none; }
+    .date-sep  { display: inline; }
+
+    /* ── スケジュール：ドット（〇）と縦線を非表示 ── */
+    .timeline-dot    { display: none !important; }
+    .timeline::before { display: none !important; }
+
+    /* ── スケジュール：グリッドレイアウト（title＋content 2要素） ── */
+    /* PC (≥769px)：1カラム、title→content→arrow の縦積み */
+    @media (min-width: 769px) {
+      /* 通常item */
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        grid-template-areas: "title" "content" "arrow" !important;
+        column-gap: 0 !important;
+        row-gap: 8px !important;
+        align-items: start !important;
+        flex-direction: unset !important;
+      }
+      .timeline-title  { grid-area: title !important; align-self: center !important; }
+      .timeline-content{ grid-area: content !important; }
+      /* 最後の審判：矢印行なし */
+      .timeline-item.final,
+      .timeline-item.final:nth-child(even) {
+        grid-template-areas: "title" "content" !important;
+      }
+      /* 矢印スタイル（final以外） */
+      .timeline-item:not(.final)::after {
+        grid-area: arrow;
+        content: '';
+        display: block;
+        width: 11px;
+        height: 11px;
+        border-right: 1.5px solid rgba(232,201,106,0.65);
+        border-bottom: 1.5px solid rgba(232,201,106,0.65);
+        transform: translateY(0) rotate(45deg);
+        animation: arrowFloat 2s ease-in-out infinite;
+        margin: 2px auto 6px;
+        box-shadow: 1px 1px 4px rgba(232,201,106,0.25);
+      }
+    }
+
     /* ── スマホ（768px以下）：全横並びを縦積みに ── */
     @media (max-width: 768px) {
       /* 企画概要：画像上・テキスト下 */
@@ -387,14 +564,78 @@
         padding: 0 !important;
       }
 
-      /* タイムライン */
-      .timeline-item { gap: 16px; }
-      .timeline-content { padding: 20px 20px 20px 24px !important; }
-      .timeline-date { font-size: 16px !important; }
-      .timeline-title { font-size: clamp(18px, 4.8vw, 24px) !important; }
-      .timeline-item.final .timeline-content { padding: 32px 24px !important; min-height: auto; }
-      .timeline-item.final .timeline-title { font-size: clamp(22px, 6vw, 32px) !important; }
-      .timeline-final-god { width: 180px; right: -10px; opacity: 0.12; }
+      /* タイムライン スマホ：1カラム縦積み */
+      /* 通常item：矢印行あり */
+      .timeline-item:not(.final),
+      .timeline-item:not(.final):nth-child(even) {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        grid-template-areas: "title" "content" "arrow" !important;
+        column-gap: 0 !important;
+        row-gap: 10px !important;
+        align-items: start !important;
+        flex-direction: unset !important;
+        transform: none !important;
+      }
+      /* 最後の審判：矢印行なし */
+      .timeline-item.final,
+      .timeline-item.final:nth-child(even) {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        grid-template-areas: "title" "content" !important;
+        column-gap: 0 !important;
+        row-gap: 10px !important;
+        align-items: start !important;
+        flex-direction: unset !important;
+        transform: none !important;
+      }
+      .timeline-item.visible,
+      .timeline-item:nth-child(even).visible {
+        transform: none !important;
+      }
+      .timeline-title {
+        grid-area: title !important;
+        font-size: clamp(17px, 4.5vw, 22px) !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        margin: 0 !important;
+        text-align: center !important;
+      }
+      .timeline-content {
+        grid-area: content !important;
+        padding: 16px 18px !important;
+        min-width: 0 !important;
+        overflow: visible !important;
+        text-align: center !important;
+      }
+      .timeline-content p { white-space: normal !important; }
+      .timeline-date {
+        font-size: 15px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        display: block !important;
+        margin-bottom: 6px !important;
+      }
+      /* 矢印スタイル（final以外） */
+      .timeline-item:not(.final)::after {
+        grid-area: arrow;
+        content: '';
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-right: 1.5px solid rgba(232,201,106,0.65);
+        border-bottom: 1.5px solid rgba(232,201,106,0.65);
+        transform: translateY(0) rotate(45deg);
+        animation: arrowFloat 2s ease-in-out infinite;
+        margin: 0 auto 4px;
+        box-shadow: 1px 1px 4px rgba(232,201,106,0.25);
+      }
+      /* 最後の審判の日付：スマホのみ改行 */
+      br.sp-br  { display: initial !important; }
+      .date-sep { display: none !important; }
+      .timeline-item.final .timeline-content { padding: 20px 18px !important; min-height: auto; }
+      .timeline-item.final .timeline-title { font-size: clamp(20px, 5.5vw, 28px) !important; }
+      .timeline-final-god { width: 140px; right: -8px; opacity: 0.10; }
 
       /* スマホ：タイムライン内イラストを背景化（モノクロ＋薄く） */
       .timeline-knight-art {
@@ -479,6 +720,23 @@
       filter: sepia(0.4) saturate(1.2) hue-rotate(-5deg) brightness(1.1);
     }
 
+    /* ── スケジュール PC版：最後の審判を他WAVEより少し広く ── */
+    @media (min-width: 769px) {
+      .timeline-item.final {
+        margin-left: -24px;
+        margin-right: -24px;
+      }
+    }
+    /* 最後の審判ホバーエフェクト（他WAVEと同系、クリムゾン） */
+    .timeline-item.final .timeline-content:hover {
+      border-color: rgba(192,57,43,0.85) !important;
+      box-shadow:
+        0 0 50px rgba(192,57,43,0.45),
+        0 0 100px rgba(139,0,0,0.20),
+        inset 0 0 40px rgba(139,0,0,0.08) !important;
+      transform: translateX(6px);
+    }
+
     /* ── WAVE アコーディオン ── */
     .hm-accordion {
       display: flex;
@@ -538,39 +796,35 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 4px;
     }
     .wave-post-list li {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 16px 20px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border-gold);
-      border-radius: 4px;
+      border-bottom: 1px solid rgba(232,201,106,0.10);
+    }
+    .wave-post-list li:last-child { border-bottom: none; }
+    .wave-post-list li a {
+      display: block;
+      padding: 14px 8px;
       font-size: 14px;
+      font-family: 'Noto Sans JP', sans-serif;
       color: var(--text-muted);
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      letter-spacing: 0.05em;
+      line-height: 1.6;
+      transition: color 0.2s, padding-left 0.2s;
+      position: relative;
+      padding-left: 20px;
     }
-    .wave-post-list li:hover {
-      background: rgba(212,168,39,0.06);
-      border-color: var(--gold);
-      color: var(--text-primary);
-    }
-    .wave-post-thumb {
-      width: 80px; height: 54px;
-      background: rgba(212,168,39,0.05);
-      border: 1px solid var(--border-gold);
-      border-radius: 3px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      letter-spacing: 1px;
+    .wave-post-list li a::before {
+      content: '▸';
+      position: absolute;
+      left: 4px;
       color: var(--gold-dark);
-      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      top: 50%; transform: translateY(-50%);
+    }
+    .wave-post-list li a:hover {
+      color: var(--gold-light);
+      padding-left: 26px;
     }
     .wave-post-empty {
       color: rgba(212,168,39,0.30);
@@ -702,6 +956,46 @@
       .banner-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── ヒーローイントロ：タイトル完了まで他要素を待機 ── */
+    /* タイトル以外のヒーロー要素はイントロ中は非表示 */
+    .hero-intro-wait {
+      animation: none !important;
+      opacity: 0 !important;
+      transition: none !important;
+    }
+    /* イントロ完了後 0.8s でフェードイン */
+    .hero-intro-reveal {
+      animation: none !important;
+      opacity: 1 !important;
+      transition: opacity 0.8s ease !important;
+    }
+
+    /* ── ヒーロータイトル：fadeInUp アニメを無効化し独自イントロを優先 ── */
+    .hero-title {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+
+    /* ── ヒーロータイトル：1文字ずつドロップイン ── */
+    .hero-title-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(-28px);
+      transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .hero-title-char.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* title-line2 は background-clip:text で文字が透明になるため
+       子spanにグラデーション文字を個別に適用 */
+    .title-line2 .hero-title-char {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     /* ── キャッチコピー 行単位アニメ ── */
     .catch-line {
       display: block;
@@ -767,30 +1061,20 @@
       text-align: center;
       padding: 22px 40px;
       border-bottom: 1px solid rgba(232,201,106,0.15);
-      position: relative;
-      overflow: hidden;
-      transition: color 0.25s, background 0.25s, padding-left 0.25s;
+      transition: color 0.3s ease, text-shadow 0.3s ease, background 0.3s ease;
     }
     .mobile-nav-overlay a:first-of-type {
       border-top: 1px solid rgba(232,201,106,0.15);
     }
-    /* ホバー：左スライドイン光彩 */
-    .mobile-nav-overlay a::before {
-      content: '';
-      position: absolute;
-      left: -100%;
-      top: 0; bottom: 0;
-      width: 100%;
-      background: linear-gradient(90deg, transparent, rgba(232,201,106,0.08), transparent);
-      transition: left 0.35s ease;
-    }
-    .mobile-nav-overlay a:hover::before,
-    .mobile-nav-overlay a:active::before { left: 0; }
+    /* ホバー：ゴールドグロー光彩 */
     .mobile-nav-overlay a:hover,
     .mobile-nav-overlay a:active {
       color: #fff;
-      background: rgba(232,201,106,0.05);
-      padding-left: 56px;
+      background: rgba(232,201,106,0.04);
+      text-shadow:
+        0 0 8px rgba(232,201,106,0.85),
+        0 0 20px rgba(232,201,106,0.50),
+        0 0 40px rgba(232,201,106,0.25);
     }
 
     .mobile-nav-close {
@@ -870,7 +1154,7 @@
   <!-- ① ヒーロー -->
   <section class="hero" id="top">
     <div class="hero-bg-god">
-      <img src="image/ps_god_chara.png" alt="ミリオンゴッド 神像" class="hero-god-img">
+      <img src="image/ps_god_chara.png" alt="" class="hero-god-img">
     </div>
     <div class="hero-bg-overlay"></div>
 
@@ -1025,54 +1309,54 @@
       <div class="timeline">
         <div class="timeline-item" data-chapter="I">
           <div class="timeline-dot"></div>
+          <h3 class="timeline-title">第一の騎士達</h3>
           <div class="timeline-content">
             <span class="timeline-date">5/10（土）</span>
-            <h3 class="timeline-title">第一の騎士達</h3>
             <p>The First Horsemen — WAVE 1</p>
             <div class="timeline-knight-art">♞</div>
           </div>
         </div>
         <div class="timeline-item" data-chapter="II">
           <div class="timeline-dot"></div>
+          <h3 class="timeline-title">第二の騎士達</h3>
           <div class="timeline-content">
             <span class="timeline-date">5/11（日）〜 5/17（土）</span>
-            <h3 class="timeline-title">第二の騎士達</h3>
             <p>The Second Horsemen — WAVE 2</p>
             <div class="timeline-knight-art">⚔</div>
           </div>
         </div>
         <div class="timeline-item" data-chapter="III">
           <div class="timeline-dot"></div>
+          <h3 class="timeline-title">第三の騎士達</h3>
           <div class="timeline-content">
             <span class="timeline-date">5/18（日）〜 5/24（土）</span>
-            <h3 class="timeline-title">第三の騎士達</h3>
             <p>The Third Horsemen — WAVE 3</p>
             <div class="timeline-knight-art">🛡</div>
           </div>
         </div>
         <div class="timeline-item" data-chapter="IV">
           <div class="timeline-dot"></div>
+          <h3 class="timeline-title">第四の騎士達</h3>
           <div class="timeline-content">
             <span class="timeline-date">5/25（日）〜 5/31（土）</span>
-            <h3 class="timeline-title">第四の騎士達</h3>
             <p>The Fourth Horsemen — WAVE 4</p>
             <div class="timeline-knight-art">♞</div>
           </div>
         </div>
         <div class="timeline-item" data-chapter="V">
           <div class="timeline-dot"></div>
+          <h3 class="timeline-title">第五の騎士達</h3>
           <div class="timeline-content">
             <span class="timeline-date">6/1（日）〜 6/7（土）</span>
-            <h3 class="timeline-title">第五の騎士達</h3>
             <p>The Fifth Horsemen — WAVE 5</p>
             <div class="timeline-knight-art">⚔</div>
           </div>
         </div>
         <div class="timeline-item final" data-chapter="∞">
           <div class="timeline-dot"></div>
+          <h3 class="timeline-title">最後の審判</h3>
           <div class="timeline-content">
-            <span class="timeline-date">6/13（金）〜 6/14（土）</span>
-            <h3 class="timeline-title">最後の審判</h3>
+            <span class="timeline-date">6/13（金）<span class="date-sep">〜 </span><br class="sp-br">6/14（土）</span>
             <p>The Final Judgement — 覇者決定戦</p>
             <img src="image/ps_god_chara.png" alt="" class="timeline-final-god">
           </div>
@@ -1105,9 +1389,9 @@
           </button>
           <div class="hm-accordion-body">
             <ul class="wave-post-list">
-              <li><div class="wave-post-thumb">IMG</div>【WAVE1】○○ホール 結果レポート</li>
-              <li><div class="wave-post-thumb">IMG</div>【WAVE1】△△ホール 結果レポート</li>
-              <li><div class="wave-post-thumb">IMG</div>【WAVE1】□□ホール 結果レポート</li>
+              <li><a href="#">【WAVE1】○○ホール 結果レポート</a></li>
+              <li><a href="#">【WAVE1】△△ホール 結果レポート</a></li>
+              <li><a href="#">【WAVE1】□□ホール 結果レポート</a></li>
             </ul>
           </div>
         </div>
@@ -1269,6 +1553,66 @@
       document.getElementById('hamburger-btn').classList.remove('open');
       document.body.style.overflow = '';
     }
+
+    /* ── ヒーロータイトル：1文字ずつドロップイン（ページロード時） ── */
+    (function initTitleIntro() {
+      const CHAR_DELAY = 240;   // 文字間 0.24秒（2倍）
+      const TRANS_MS   = 900;   // transitionと同じ時間（2倍）
+      let totalDelay   = 0;
+
+      // .hero-title の fadeInUp アニメを無効化（CSS側でも指定済みだが念のため）
+      const heroTitle = document.querySelector('.hero-title');
+      if (heroTitle) {
+        heroTitle.style.animation = 'none';
+        heroTitle.style.opacity   = '1';
+      }
+
+      // タイトル以外のヒーロー要素をイントロ完了まで非表示
+      const heroRevealEls = document.querySelectorAll(
+        '.hero-eyecatch, .hero-cross-line, .hero-subtitle, .hero-period, .hero-chara'
+      );
+      heroRevealEls.forEach(function(el) { el.classList.add('hero-intro-wait'); });
+
+      // スクロールロック ＋ インジケーター非表示
+      document.body.style.overflow = 'hidden';
+      const indicator = document.querySelector('.hero-scroll-indicator');
+      if (indicator) indicator.style.visibility = 'hidden';
+
+      // 各行のテキストを1文字ずつ <span> に分解
+      ['.title-line1', '.title-line2'].forEach(function(sel) {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        const text = el.textContent;
+        el.textContent = '';
+        Array.from(text).forEach(function(ch) {
+          const span = document.createElement('span');
+          span.textContent = ch;
+          span.className = 'hero-title-char';
+          span.dataset.d = totalDelay;
+          el.appendChild(span);
+          totalDelay += CHAR_DELAY;
+        });
+      });
+
+      // 次フレームで一斉にアニメ開始（遅延は各 span の data-d で制御）
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.querySelectorAll('.hero-title-char').forEach(function(span) {
+            setTimeout(function() { span.classList.add('visible'); },
+                       parseInt(span.dataset.d, 10));
+          });
+          // 全文字完了後：他要素フェードイン ＋ スクロールロック解除
+          setTimeout(function() {
+            heroRevealEls.forEach(function(el) {
+              el.classList.remove('hero-intro-wait');
+              el.classList.add('hero-intro-reveal');
+            });
+            document.body.style.overflow = '';
+            if (indicator) indicator.style.visibility = '';
+          }, totalDelay + TRANS_MS + 80);
+        });
+      });
+    })();
 
     /* ── キャッチコピー：行ごとフェードイン（IntersectionObserver） ── */
     (function initCatchAnimation() {
