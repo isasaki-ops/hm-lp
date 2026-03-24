@@ -259,23 +259,77 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   window.hmToggle = hmToggle; // onclick属性から参照できるよう公開
 
-  // コンテンツが入っている最新WAVEを自動で開く
-  (function initAccordion() {
-    const items = document.querySelectorAll('#wave-accordion .hm-accordion-item');
-    if (!items.length) return;
-    let latestWithContent = null;
-    items.forEach(item => {
-      const isEmpty = item.querySelector('.wave-post-empty') && !item.querySelector('.wave-post-list');
-      if (!isEmpty) latestWithContent = item;
-    });
-    const target = latestWithContent || items[items.length - 1];
-    if (target) {
-      target.classList.add('open');
-      const body = target.querySelector('.hm-accordion-body');
-      const icon = target.querySelector('.hm-accordion-icon');
-      if (body) body.style.maxHeight = body.scrollHeight + 'px';
-      if (icon) icon.textContent = '▲';
-    }
+  // REST APIでWAVE記事を取得して自動描画
+  (function initWaveAccordion() {
+    const accordion = document.getElementById('wave-accordion');
+    if (!accordion) return;
+
+    const BASE  = 'https://hisshobon-hall.info/wp-json/wp/v2';
+    const WAVES = [1, 2, 3, 4, 5];
+
+    // STEP 1: タグIDをまとめて並列取得
+    Promise.all(
+      WAVES.map(function(n) {
+        return fetch(BASE + '/tags?slug=hm-wave' + n)
+          .then(function(r) { return r.ok ? r.json() : []; })
+          .then(function(data) { return { wave: n, tagId: data.length ? data[0].id : null }; })
+          .catch(function() { return { wave: n, tagId: null }; });
+      })
+    )
+    // STEP 2: タグIDで各WAVEの記事を並列取得
+    .then(function(tagResults) {
+      return Promise.all(
+        tagResults.map(function(t) {
+          if (!t.tagId) return Promise.resolve({ wave: t.wave, posts: [] });
+          return fetch(BASE + '/report?tags=' + t.tagId + '&_fields=id,title,link&per_page=10')
+            .then(function(r) { return r.ok ? r.json() : []; })
+            .then(function(data) { return { wave: t.wave, posts: Array.isArray(data) ? data : [] }; })
+            .catch(function() { return { wave: t.wave, posts: [] }; });
+        })
+      );
+    })
+    // STEP 3: 描画 + 記事があるWAVEの中で最大番号を自動オープン
+    .then(function(waveResults) {
+      var latestWave = null;
+
+      waveResults.forEach(function(wr) {
+        var item = accordion.querySelector('.hm-accordion-item[data-wave="' + wr.wave + '"]');
+        if (!item) return;
+        var body = item.querySelector('.hm-accordion-body');
+        if (!body) return;
+
+        if (wr.posts.length === 0) {
+          body.innerHTML = '<p class="wave-post-empty">— WAVE ' + wr.wave + ' 開催後に自動表示 —</p>';
+        } else {
+          var ul = document.createElement('ul');
+          ul.className = 'wave-post-list';
+          wr.posts.forEach(function(post) {
+            var li = document.createElement('li');
+            var a  = document.createElement('a');
+            a.href        = post.link;
+            a.textContent = post.title.rendered;
+            a.target      = '_blank';
+            a.rel         = 'noopener noreferrer';
+            li.appendChild(a);
+            ul.appendChild(li);
+          });
+          body.innerHTML = '';
+          body.appendChild(ul);
+          latestWave = wr.wave;
+        }
+      });
+
+      // 記事があるWAVEの中で最も番号が大きいものを自動オープン
+      if (latestWave !== null) {
+        var target = accordion.querySelector('.hm-accordion-item[data-wave="' + latestWave + '"]');
+        if (target) {
+          target.classList.add('open');
+          var icon = target.querySelector('.hm-accordion-icon');
+          if (icon) icon.textContent = '▲';
+        }
+      }
+    })
+    .catch(function(err) { console.error('[WAVE API]', err); });
   })();
 
   /* ===========================
@@ -323,19 +377,45 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroRevealEls = document.querySelectorAll(
       '.hero-eyecatch, .hero-cross-line, .hero-subtitle, .hero-period, .hero-chara'
     );
-    heroRevealEls.forEach(el => el.classList.add('hero-intro-wait'));
-
-    document.body.style.overflow = 'hidden';
     const indicator = document.querySelector('.hero-scroll-indicator');
+
+    // ── 安全フォールバック：JS エラー等でアニメが止まった場合に強制表示 ──
+    function forceReveal() {
+      clearTimeout(safetyTimer);
+      document.body.style.overflow = '';
+      heroRevealEls.forEach(function(el) {
+        el.classList.remove('hero-intro-wait');
+        el.classList.add('hero-intro-reveal');
+        el.style.opacity = '1';
+      });
+      document.querySelectorAll('.hero-title-char').forEach(function(el) {
+        el.classList.add('visible');
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
+      // .hero-title 自体の子 span が未生成の場合は元テキストをそのまま表示
+      ['.title-line1', '.title-line2'].forEach(function(sel) {
+        var line = document.querySelector(sel);
+        if (line && !line.querySelector('.hero-title-char')) {
+          line.style.opacity = '1';
+        }
+      });
+      if (indicator) indicator.style.visibility = '';
+    }
+    // 10秒以内にアニメが完了しなければ強制表示
+    var safetyTimer = setTimeout(forceReveal, 10000);
+
+    heroRevealEls.forEach(function(el) { el.classList.add('hero-intro-wait'); });
+    document.body.style.overflow = 'hidden';
     if (indicator) indicator.style.visibility = 'hidden';
 
-    ['.title-line1', '.title-line2'].forEach(sel => {
-      const el = document.querySelector(sel);
+    ['.title-line1', '.title-line2'].forEach(function(sel) {
+      var el = document.querySelector(sel);
       if (!el) return;
-      const text = el.textContent;
+      var text = el.textContent;
       el.textContent = '';
-      Array.from(text).forEach(ch => {
-        const span = document.createElement('span');
+      Array.from(text).forEach(function(ch) {
+        var span = document.createElement('span');
         span.textContent = ch;
         span.className   = 'hero-title-char';
         span.dataset.d   = totalDelay;
@@ -344,18 +424,20 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelectorAll('.hero-title-char').forEach(span => {
-          setTimeout(() => span.classList.add('visible'), parseInt(span.dataset.d, 10));
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        document.querySelectorAll('.hero-title-char').forEach(function(span) {
+          setTimeout(function() { span.classList.add('visible'); }, parseInt(span.dataset.d, 10));
         });
-        setTimeout(() => {
-          heroRevealEls.forEach(el => {
+        // 正常完了時：他要素フェードイン ＋ スクロール解除
+        setTimeout(function() {
+          heroRevealEls.forEach(function(el) {
             el.classList.remove('hero-intro-wait');
             el.classList.add('hero-intro-reveal');
           });
           document.body.style.overflow = '';
           if (indicator) indicator.style.visibility = '';
+          clearTimeout(safetyTimer); // 正常完了したのでフォールバック解除
         }, totalDelay + TRANS_MS + 80);
       });
     });

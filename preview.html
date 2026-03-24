@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>悪魔が来たりて、ヘヴィメダル | Season 1 ミリオンゴッド神堕とし編</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/hm-lp.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
@@ -654,7 +655,7 @@
       .section-title { font-size: clamp(26px, 7vw, 38px) !important; }
 
       /* バナー */
-      .banner-grid { grid-template-columns: 1fr; }
+      .banner-grid { grid-template-columns: repeat(2, 1fr); }
 
       /* フォトギャラリー */
       .photo-gallery { grid-template-columns: 1fr 1fr !important; }
@@ -834,6 +835,19 @@
       font-family: 'Oswald', sans-serif;
       font-size: 12px;
     }
+    .wave-post-loading {
+      color: rgba(212,168,39,0.45);
+      padding: 36px 0;
+      text-align: center;
+      letter-spacing: 3px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      animation: loadingPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes loadingPulse {
+      0%, 100% { opacity: 0.45; }
+      50%       { opacity: 0.15; }
+    }
 
     /* ── 機種解説テキスト ── */
     .machine-lore {
@@ -931,28 +945,30 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
-    .banner-placeholder {
-      background: var(--bg-card);
-      border: 1px dashed var(--border-gold);
+    .banner-item {
+      display: block;
+      border: 1px solid var(--border-gold);
       border-radius: 4px;
-      aspect-ratio: 3 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Oswald', sans-serif;
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--gold-dark);
-      transition: border-color 0.2s, background 0.2s;
+      overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      line-height: 0;
     }
-    .banner-placeholder:hover {
+    .banner-item:hover {
       border-color: var(--gold);
-      background: rgba(201,162,39,0.04);
+      box-shadow: 0 0 18px rgba(232,201,106,0.20);
+      transform: translateY(-2px);
+    }
+    .banner-item img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
-
-    /* ── responsive (banner fallback) ── */
-    @media (max-width: 600px) {
+    /* ── responsive (banner) ── */
+    @media (max-width: 768px) {
+      .banner-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 400px) {
       .banner-grid { grid-template-columns: 1fr; }
     }
 
@@ -1388,11 +1404,7 @@
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
-            <ul class="wave-post-list">
-              <li><a href="#">【WAVE1】○○ホール 結果レポート</a></li>
-              <li><a href="#">【WAVE1】△△ホール 結果レポート</a></li>
-              <li><a href="#">【WAVE1】□□ホール 結果レポート</a></li>
-            </ul>
+            <p class="wave-post-loading">— 読み込み中 —</p>
           </div>
         </div>
 
@@ -1402,7 +1414,7 @@
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
-            <p class="wave-post-empty">— WAVE 2 開催後に自動表示 —</p>
+            <p class="wave-post-loading">— 読み込み中 —</p>
           </div>
         </div>
 
@@ -1412,7 +1424,7 @@
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
-            <p class="wave-post-empty">— WAVE 3 開催後に自動表示 —</p>
+            <p class="wave-post-loading">— 読み込み中 —</p>
           </div>
         </div>
 
@@ -1422,7 +1434,7 @@
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
-            <p class="wave-post-empty">— WAVE 4 開催後に自動表示 —</p>
+            <p class="wave-post-loading">— 読み込み中 —</p>
           </div>
         </div>
 
@@ -1432,7 +1444,7 @@
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
-            <p class="wave-post-empty">— WAVE 5 開催後に自動表示 —</p>
+            <p class="wave-post-loading">— 読み込み中 —</p>
           </div>
         </div>
 
@@ -1483,12 +1495,28 @@
   <section class="section banners">
     <div class="container">
       <div class="banner-grid">
-        <div class="banner-placeholder">BANNER 300×100</div>
-        <div class="banner-placeholder">BANNER 300×100</div>
-        <div class="banner-placeholder">BANNER 300×100</div>
-        <div class="banner-placeholder">BANNER 300×100</div>
-        <div class="banner-placeholder">BANNER 300×100</div>
-        <div class="banner-placeholder">BANNER 300×100</div>
+        <!-- バナー差し替え手順：
+             1. image/generate-banners.html をブラウザで開いてPNG 6枚をダウンロード
+             2. WordPressメディアライブラリにアップロード
+             3. hrefを各ホールのURL、srcをメディアライブラリのURLに差し替えるだけでOK -->
+        <a class="banner-item" href="#" target="_blank" rel="noopener">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/banner_01.png" alt="ホールA" width="300" height="100" loading="lazy">
+        </a>
+        <a class="banner-item" href="#" target="_blank" rel="noopener">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/banner_02.png" alt="ホールB" width="300" height="100" loading="lazy">
+        </a>
+        <a class="banner-item" href="#" target="_blank" rel="noopener">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/banner_03.png" alt="ホールC" width="300" height="100" loading="lazy">
+        </a>
+        <a class="banner-item" href="#" target="_blank" rel="noopener">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/banner_04.png" alt="ホールD" width="300" height="100" loading="lazy">
+        </a>
+        <a class="banner-item" href="#" target="_blank" rel="noopener">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/banner_05.png" alt="ホールE" width="300" height="100" loading="lazy">
+        </a>
+        <a class="banner-item" href="#" target="_blank" rel="noopener">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/banner_06.png" alt="ホールF" width="300" height="100" loading="lazy">
+        </a>
       </div>
     </div>
   </section>
@@ -1502,133 +1530,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
-  <script>
-    /* ── アコーディオン ── */
-    function hmToggle(btn) {
-      const item = btn.closest('.hm-accordion-item');
-      const isOpen = item.classList.contains('open');
-      // 開いているものを閉じる
-      document.querySelectorAll('.hm-accordion-item.open').forEach(el => el.classList.remove('open'));
-      // クリックしたものが閉じていたなら開く
-      if (!isOpen) item.classList.add('open');
-    }
-
-    /* 記事が存在するWAVEの中で最大番号を自動検出して開く */
-    (function initAccordion() {
-      const items = document.querySelectorAll('#wave-accordion .hm-accordion-item');
-      let latestWithContent = null;
-      items.forEach(item => {
-        // wave-post-empty のみのボディは「記事なし」、それ以外は「記事あり」と判定
-        const isEmpty = item.querySelector('.wave-post-empty') && !item.querySelector('.wave-post-list');
-        if (!isEmpty) latestWithContent = item;
-      });
-      // 記事ありが1件もなければ最後のWAVEを開く
-      const target = latestWithContent || items[items.length - 1];
-      if (target) target.classList.add('open');
-    })();
-
-    /* WAVE 5 のタイムラインドット */
-    document.querySelectorAll('.timeline-item[data-chapter="V"] .timeline-dot').forEach(dot => {
-      dot.textContent = 'V';
-    });
-
-    /* ── ハンバーガーメニュー ── */
-    function toggleMobileNav() {
-      const btn = document.getElementById('hamburger-btn');
-      const overlay = document.getElementById('mobile-nav-overlay');
-      const isOpen = overlay.classList.contains('open');
-      if (isOpen) {
-        overlay.classList.remove('open');
-        btn.classList.remove('open');
-        document.body.style.overflow = '';
-      } else {
-        overlay.classList.add('open');
-        btn.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-    }
-    function closeMobileNav() {
-      document.getElementById('mobile-nav-overlay').classList.remove('open');
-      document.getElementById('hamburger-btn').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    /* ── ヒーロータイトル：1文字ずつドロップイン（ページロード時） ── */
-    (function initTitleIntro() {
-      const CHAR_DELAY = 240;   // 文字間 0.24秒（2倍）
-      const TRANS_MS   = 900;   // transitionと同じ時間（2倍）
-      let totalDelay   = 0;
-
-      // .hero-title の fadeInUp アニメを無効化（CSS側でも指定済みだが念のため）
-      const heroTitle = document.querySelector('.hero-title');
-      if (heroTitle) {
-        heroTitle.style.animation = 'none';
-        heroTitle.style.opacity   = '1';
-      }
-
-      // タイトル以外のヒーロー要素をイントロ完了まで非表示
-      const heroRevealEls = document.querySelectorAll(
-        '.hero-eyecatch, .hero-cross-line, .hero-subtitle, .hero-period, .hero-chara'
-      );
-      heroRevealEls.forEach(function(el) { el.classList.add('hero-intro-wait'); });
-
-      // スクロールロック ＋ インジケーター非表示
-      document.body.style.overflow = 'hidden';
-      const indicator = document.querySelector('.hero-scroll-indicator');
-      if (indicator) indicator.style.visibility = 'hidden';
-
-      // 各行のテキストを1文字ずつ <span> に分解
-      ['.title-line1', '.title-line2'].forEach(function(sel) {
-        const el = document.querySelector(sel);
-        if (!el) return;
-        const text = el.textContent;
-        el.textContent = '';
-        Array.from(text).forEach(function(ch) {
-          const span = document.createElement('span');
-          span.textContent = ch;
-          span.className = 'hero-title-char';
-          span.dataset.d = totalDelay;
-          el.appendChild(span);
-          totalDelay += CHAR_DELAY;
-        });
-      });
-
-      // 次フレームで一斉にアニメ開始（遅延は各 span の data-d で制御）
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          document.querySelectorAll('.hero-title-char').forEach(function(span) {
-            setTimeout(function() { span.classList.add('visible'); },
-                       parseInt(span.dataset.d, 10));
-          });
-          // 全文字完了後：他要素フェードイン ＋ スクロールロック解除
-          setTimeout(function() {
-            heroRevealEls.forEach(function(el) {
-              el.classList.remove('hero-intro-wait');
-              el.classList.add('hero-intro-reveal');
-            });
-            document.body.style.overflow = '';
-            if (indicator) indicator.style.visibility = '';
-          }, totalDelay + TRANS_MS + 80);
-        });
-      });
-    })();
-
-    /* ── キャッチコピー：行ごとフェードイン（IntersectionObserver） ── */
-    (function initCatchAnimation() {
-      const storyText = document.querySelector('.story-text');
-      if (!storyText) return;
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.querySelectorAll('.catch-line').forEach(function(line, i) {
-            setTimeout(function() { line.classList.add('visible'); }, i * 260);
-          });
-          observer.unobserve(entry.target);
-        });
-      }, { threshold: 0.25 });
-      observer.observe(storyText);
-    })();
-  </script>
+  <script src="js/hm-lp.js"></script>
 </body>
 </html>

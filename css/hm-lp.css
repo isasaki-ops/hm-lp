@@ -78,6 +78,33 @@
       letter-spacing: 4px !important;
     }
 
+    /* ── ヒーローレイアウト：SWELL上書き対策（flex !important） ── */
+    .hero-layout {
+      display:         flex !important;
+      flex-direction:  row !important;
+      align-items:     center !important;
+      justify-content: space-between !important;
+      flex-wrap:       nowrap !important;
+    }
+    .hero-content {
+      flex:       1 1 auto !important;
+      order:      1 !important;
+      align-self: center !important;
+      min-width:  0 !important;
+    }
+    .hero-chara {
+      flex:       0 0 auto !important;
+      width:      520px !important;
+      max-width:  520px !important;
+      order:      2 !important;
+      align-self: flex-end !important;
+    }
+    .hero-bg-god {
+      position: absolute !important;
+      inset:    0 !important;
+      z-index:  0 !important;
+    }
+
     /* ── テキストセンタリング統一 ── */
     /* ヒーロー */
     .hero-content { text-align: center; }
@@ -1098,14 +1125,25 @@
       .hamburger { display: block; }
       .header-nav { display: none; }
 
-      /* ヒーロー：テキスト上・筐体下 */
+      /* ヒーロー：テキスト上・筐体下（縦並び） */
       .hero-layout {
-        grid-template-columns: 1fr !important;
-        padding-top: 100px;
-        padding-bottom: 0;
-        min-height: auto;
-        gap: 0;
+        flex-direction: column !important;
+        align-items:    center !important;
+        padding:        100px 24px 0 !important;
+        min-height:     auto !important;
+        gap:            0 !important;
       }
-      .hero-content { order: 1; padding-bottom: 24px; align-self: auto; }
-      .hero-chara   { order: 2; padding-bottom: 0; }
+      .hero-content {
+        order:          1 !important;
+        width:          100% !important;
+        padding-bottom: 24px !important;
+        align-self:     auto !important;
+        text-align:     center !important;
+      }
+      .hero-chara {
+        order:     2 !important;
+        width:     100% !important;
+        max-width: 280px !important;
+        margin:    0 auto !important;
+      }
     }

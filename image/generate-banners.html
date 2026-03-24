@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>バナー生成ツール</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #070502;
+      color: #e8c96a;
+      font-family: 'Noto Sans JP', sans-serif;
+      padding: 48px 40px;
+    }
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      letter-spacing: 5px;
+      color: rgba(232,201,106,0.7);
+      margin-bottom: 40px;
+    }
+    .banner-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    canvas {
+      border: 1px solid rgba(232,201,106,0.25);
+      display: block;
+      flex-shrink: 0;
+    }
+    a.dl {
+      display: inline-block;
+      padding: 10px 24px;
+      background: rgba(232,201,106,0.08);
+      border: 1px solid rgba(232,201,106,0.45);
+      color: #e8c96a;
+      text-decoration: none;
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      transition: background 0.2s;
+    }
+    a.dl:hover { background: rgba(232,201,106,0.18); }
+    .status {
+      margin-top: 40px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: rgba(232,201,106,0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>BANNER GENERATOR — TEST BANNERS 300 × 100</h1>
+  <div id="output"></div>
+  <p class="status" id="status">— フォント読み込み中 —</p>
+
+  <script>
+    var BANNERS = [
+      { file: 'banner_01.png', hall: 'ホールA', en: 'HALL A' },
+      { file: 'banner_02.png', hall: 'ホールB', en: 'HALL B' },
+      { file: 'banner_03.png', hall: 'ホールC', en: 'HALL C' },
+      { file: 'banner_04.png', hall: 'ホールD', en: 'HALL D' },
+      { file: 'banner_05.png', hall: 'ホールE', en: 'HALL E' },
+      { file: 'banner_06.png', hall: 'ホールF', en: 'HALL F' },
+    ];
+
+    var W = 300, H = 100;
+
+    function drawBanner(ctx, data) {
+      // 背景
+      ctx.fillStyle = '#0a0704';
+      ctx.fillRect(0, 0, W, H);
+
+      // グラデーションオーバーレイ
+      var grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0,   'rgba(232, 201, 106, 0.09)');
+      grad.addColorStop(0.5, 'rgba(232, 201, 106, 0.02)');
+      grad.addColorStop(1,   'rgba(139, 0, 0, 0.12)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // 外枠
+      ctx.strokeStyle = 'rgba(232, 201, 106, 0.60)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(1, 1, W - 2, H - 2);
+
+      // 内枠（細）
+      ctx.strokeStyle = 'rgba(232, 201, 106, 0.15)';
+      ctx.lineWidth = 0.5;
+      ctx.strokeRect(5, 5, W - 10, H - 10);
+
+      // コーナーマーク
+      function corner(x, y, dx, dy) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);          ctx.lineTo(x + dx * 11, y);
+        ctx.moveTo(x, y);          ctx.lineTo(x, y + dy * 11);
+        ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(232, 201, 106, 0.80)';
+      ctx.lineWidth = 1.2;
+      corner(8,     8,      1,  1);
+      corner(W - 8, 8,     -1,  1);
+      corner(8,     H - 8,  1, -1);
+      corner(W - 8, H - 8, -1, -1);
+
+      // ホール名（日本語）
+      ctx.fillStyle = '#e8c96a';
+      ctx.font = '700 26px "Noto Sans JP", "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.shadowColor  = 'rgba(232, 201, 106, 0.35)';
+      ctx.shadowBlur   = 8;
+      ctx.fillText(data.hall, W / 2, 54);
+      ctx.shadowBlur = 0;
+
+      // 英語サブテキスト
+      ctx.fillStyle = 'rgba(232, 201, 106, 0.40)';
+      ctx.font = '700 10px "Oswald", "Arial Narrow", sans-serif';
+      ctx.fillText(data.en, W / 2, 74);
+    }
+
+    var output = document.getElementById('output');
+    var status = document.getElementById('status');
+
+    document.fonts.ready.then(function() {
+      status.textContent = '— 生成中 —';
+
+      BANNERS.forEach(function(data) {
+        var canvas = document.createElement('canvas');
+        canvas.width  = W;
+        canvas.height = H;
+        var ctx = canvas.getContext('2d');
+        drawBanner(ctx, data);
+
+        var a = document.createElement('a');
+        a.href     = canvas.toDataURL('image/png');
+        a.download = data.file;
+        a.className = 'dl';
+        a.textContent = '↓ ' + data.file + ' をダウンロード';
+
+        var wrap = document.createElement('div');
+        wrap.className = 'banner-item';
+        wrap.appendChild(canvas);
+        wrap.appendChild(a);
+        output.appendChild(wrap);
+      });
+
+      status.textContent = '— 生成完了。各ファイルをダウンロードして image/ フォルダに保存してください —';
+    });
+  </script>
+</body>
+</html>
