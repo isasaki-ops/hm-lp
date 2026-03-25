@@ -447,18 +447,20 @@ document.addEventListener('DOMContentLoaded', function () {
      CATCHCOPY FADE-IN
   =========================== */
   (function initCatchAnimation() {
-    const storyText = document.querySelector('.story-text');
-    if (!storyText) return;
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.querySelectorAll('.catch-line').forEach((line, i) => {
-          setTimeout(() => line.classList.add('visible'), i * 260);
+    var storyTexts = document.querySelectorAll('.story-text');
+    if (!storyTexts.length) return;
+    storyTexts.forEach(function(storyText) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.querySelectorAll('.catch-line').forEach(function(line, i) {
+            setTimeout(function() { line.classList.add('visible'); }, i * 260);
+          });
+          obs.unobserve(entry.target);
         });
-        obs.unobserve(entry.target);
-      });
-    }, { threshold: 0.25 });
-    obs.observe(storyText);
+      }, { threshold: 0.25 });
+      obs.observe(storyText);
+    });
   })();
 
 }); // end DOMContentLoaded

@@ -96,6 +96,8 @@
     .timeline-date { text-align: center; }
     /* キャッチコピー（企画概要） */
     .story-text { text-align: center; }
+    /* スマホ用キャッチコピーはPCでは非表示 */
+    .story-text-sp { display: none; }
     /* 区切り・サブ見出し */
     .section-header { text-align: center; }
     .section-desc { text-align: center; }
@@ -300,22 +302,21 @@
 
     .banners { background: var(--bg-dark); }
 
-    /* ── 企画概要：囲みなし 2カラムレイアウト ── */
+    /* ── 企画概要：画像上・テキスト下（縦並び） ── */
     .about-story-layout {
       display: grid;
-      grid-template-columns: 1fr 400px;
+      grid-template-columns: 1fr;
       gap: 0;
-      align-items: end;
       margin-top: 48px;
     }
     .about-story-text {
-      padding-bottom: 32px;
-      padding-right: 48px;
+      padding: 36px 0 32px;
+      text-align: center;
     }
     /* story-text / story-desc を上書きして大きく */
     .about-story-text .story-text {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(26px, 4vw, 52px);
+      font-size: clamp(28px, 3.6vw, 52px);
       font-weight: 700;
       line-height: 2.0;
       letter-spacing: 0.14em;
@@ -334,18 +335,17 @@
     }
     .about-story-text .story-desc strong { color: #f07070; }
     .about-story-chara {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      order: -1;
+      width: 100%;
     }
-    /* 黒背景の perorima_07 はそのまま背景に溶け込む */
+    /* 横長画像：横幅いっぱいに表示 */
     .about-story-chara img {
       width: 100%;
-      max-width: 400px;
+      max-width: 100%;
       display: block;
+      border-radius: 4px;
       filter:
-        drop-shadow(-12px 0 40px rgba(139,0,0,0.5))
+        drop-shadow(0 8px 40px rgba(139,0,0,0.4))
         drop-shadow(0 0 60px rgba(192,57,43,0.2));
     }
     .about-story-chara-name {
@@ -513,21 +513,46 @@
 
     /* ── スマホ（768px以下）：全横並びを縦積みに ── */
     @media (max-width: 768px) {
-      /* 企画概要：画像上・テキスト下 */
-      .about-story-layout {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
+      /* 企画概要：スマホ（横幅いっぱい表示） */
+      .about-story-layout { margin-top: 24px; }
       .about-story-chara {
-        order: -1;
-        max-width: 390px;
-        margin: 0 auto;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
-      .about-story-chara img { max-width: 100%; }
+      .about-story-chara img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 0 auto !important;
+      }
       .about-story-text {
-        padding-right: 0;
-        padding-bottom: 20px;
+        padding: 20px 0;
         text-align: center;
+      }
+      /* PC用キャッチを非表示、スマホ用を表示 */
+      .story-text-pc { display: none; }
+      .story-text-sp {
+        display: block;
+        text-align: center;
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: clamp(20px, 5.5vw, 26px);
+        font-weight: 700;
+        line-height: 2.0;
+        letter-spacing: 0.14em;
+        margin-bottom: 20px;
+        color: #f0f0f0;
+        animation: catchGlow 3.5s ease-in-out infinite;
+      }
+      .story-text-sp .catch-line {
+        display: block;
+        white-space: nowrap;
+      }
+      .story-text-sp .catch-line em {
+        font-style: normal;
+        color: var(--gold-light);
       }
       .about-story-text .story-text {
         font-size: clamp(20px, 5.5vw, 28px);
@@ -662,7 +687,6 @@
     }
 
     @media (max-width: 480px) {
-      .about-story-chara { max-width: 200px; }
       .photo-gallery { grid-template-columns: 1fr !important; }
       .hm-accordion-header { padding: 16px 18px; font-size: 11px; }
       .hm-accordion-body { padding: 20px 18px; }
@@ -1208,17 +1232,23 @@
       </div>
 
       <div class="about-story-layout">
+        <div class="about-story-chara">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/perolina3.jpg" alt="兎味ペロリナ">
+        </div>
         <div class="about-story-text">
-          <p class="story-text">
+          <!-- PC用：2行 -->
+          <p class="story-text story-text-pc">
+            <span class="catch-line">悪魔のラスボス <em>兎味ペロリナ</em> を、</span>
+            <span class="catch-line">ヨハネの黙示録の <em>4騎士団</em> が討つ——</span>
+          </p>
+          <!-- スマホ用：4行・折り返しなし -->
+          <p class="story-text story-text-sp">
             <span class="catch-line">悪魔のラスボス</span>
             <span class="catch-line"><em>兎味ペロリナ</em>を、</span>
             <span class="catch-line">ヨハネの黙示録の</span>
-            <span class="catch-line"><em>4騎士団</em>が討つ——</span>
+            <span class="catch-line"><em>4騎士団</em>が討つ――</span>
           </p>
           <p class="story-desc">各週ごとに騎士団が出陣し、全5章の戦いを経て<br>6月13日・14日の<strong>「最後の審判」</strong>で真の覇者が決まる。</p>
-        </div>
-        <div class="about-story-chara">
-          <img src="image/perorima_03.png" alt="兎味ペロリナ">
         </div>
       </div>
     </div>
@@ -1277,14 +1307,14 @@
 
       <div class="pelorina-main">
         <div class="pelorina-main-photo">
-          <img src="image/perorima_07.png" alt="兎味ペロリナ" class="pelorina-big-img">
+          <img src="https://hisshobon-hall.info/wp-content/uploads/perolina2.jpg" alt="兎味ペロリナ" class="pelorina-big-img">
           <div class="pelorina-name-tag">
             <span>兎味ペロリナ</span>
             <span class="pelorina-en">Usami Pelorina</span>
           </div>
         </div>
         <div class="pelorina-main-text">
-          <div class="pelorina-badge">SABBATH ENTERTAINMENT</div>
+          <div class="pelorina-badge">SABBAT ENTERTAINMENT</div>
           <h3 class="pelorina-catch">悪魔のラスボス、<br>ここに降臨。</h3>
           <p class="pelorina-desc">
             サバトエンターテイメント主催のパチスロ取材キャラクター。<br>
@@ -1296,13 +1326,13 @@
       <!-- フォトギャラリー -->
       <div class="photo-gallery">
         <div class="gallery-item" data-delay="0">
-          <img src="image/perorima_01.png" alt="兎味ペロリナ">
+          <img src="image/perorima_07.png" alt="兎味ペロリナ">
         </div>
         <div class="gallery-item" data-delay="100">
-          <img src="image/perorima_04.png" alt="兎味ペロリナ">
+          <img src="image/perorima_02.png" alt="兎味ペロリナ">
         </div>
         <div class="gallery-item" data-delay="200">
-          <img src="image/perorima_06.png" alt="兎味ペロリナ">
+          <img src="image/perorima_05.png" alt="兎味ペロリナ">
         </div>
       </div>
     </div>
@@ -1524,9 +1554,9 @@
   <!-- フッター -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <p class="footer-logo">SABBATH ENTERTAINMENT</p>
+      <p class="footer-logo">SABBAT ENTERTAINMENT</p>
       <p class="footer-copy">主催：サバトエンターテイメント / 監修：辰巳出版</p>
-      <p class="footer-copy">&copy; 2025 Sabbath Entertainment. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 Sabbat Entertainment. All rights reserved.</p>
     </div>
   </footer>
 
