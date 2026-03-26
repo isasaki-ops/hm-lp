@@ -382,7 +382,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // ── 安全フォールバック：JS エラー等でアニメが止まった場合に強制表示 ──
     function forceReveal() {
       clearTimeout(safetyTimer);
-      document.body.style.overflow = '';
       heroRevealEls.forEach(function(el) {
         el.classList.remove('hero-intro-wait');
         el.classList.add('hero-intro-reveal');
@@ -406,7 +405,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var safetyTimer = setTimeout(forceReveal, 10000);
 
     heroRevealEls.forEach(function(el) { el.classList.add('hero-intro-wait'); });
-    document.body.style.overflow = 'hidden';
     if (indicator) indicator.style.visibility = 'hidden';
 
     ['.title-line1', '.title-line2'].forEach(function(sel) {
@@ -435,7 +433,6 @@ document.addEventListener('DOMContentLoaded', function () {
             el.classList.remove('hero-intro-wait');
             el.classList.add('hero-intro-reveal');
           });
-          document.body.style.overflow = '';
           if (indicator) indicator.style.visibility = '';
           clearTimeout(safetyTimer); // 正常完了したのでフォールバック解除
         }, totalDelay + TRANS_MS + 80);

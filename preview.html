@@ -513,6 +513,7 @@
 
     /* ── スマホ（768px以下）：全横並びを縦積みに ── */
     @media (max-width: 768px) {
+      /* 企画概要：スマホ画像切り替え */
       /* 企画概要：スマホ（横幅いっぱい表示） */
       .about-story-layout { margin-top: 24px; }
       .about-story-chara {
@@ -1169,7 +1170,7 @@
         <a href="#machine">対象機種</a>
         <a href="#pelorina">兎味ペロリナ</a>
         <a href="#schedule">スケジュール</a>
-        <a href="#wave-results">WAVE結果</a>
+        <a href="#wave-results">結果</a>
         <a href="#finalists">最後の審判</a>
       </nav>
       <button class="hamburger" id="hamburger-btn" aria-label="メニューを開く" onclick="toggleMobileNav()">
@@ -1187,7 +1188,7 @@
     <a href="#machine"     onclick="closeMobileNav()">対象機種</a>
     <a href="#pelorina"    onclick="closeMobileNav()">兎味ペロリナ</a>
     <a href="#schedule"    onclick="closeMobileNav()">スケジュール</a>
-    <a href="#wave-results" onclick="closeMobileNav()">WAVE結果</a>
+    <a href="#wave-results" onclick="closeMobileNav()">結果</a>
     <a href="#finalists"   onclick="closeMobileNav()">最後の審判</a>
   </nav>
 
@@ -1233,7 +1234,10 @@
 
       <div class="about-story-layout">
         <div class="about-story-chara">
-          <img src="https://hisshobon-hall.info/wp-content/uploads/perolina3.jpg" alt="兎味ペロリナ">
+          <picture>
+            <source media="(max-width: 768px)" srcset="https://hisshobon-hall.info/wp-content/uploads/perolina3_00.jpg">
+            <img src="https://hisshobon-hall.info/wp-content/uploads/perolina3.jpg" alt="兎味ペロリナ">
+          </picture>
         </div>
         <div class="about-story-text">
           <!-- PC用：2行 -->
@@ -1323,18 +1327,6 @@
         </div>
       </div>
 
-      <!-- フォトギャラリー -->
-      <div class="photo-gallery">
-        <div class="gallery-item" data-delay="0">
-          <img src="image/perorima_07.png" alt="兎味ペロリナ">
-        </div>
-        <div class="gallery-item" data-delay="100">
-          <img src="image/perorima_02.png" alt="兎味ペロリナ">
-        </div>
-        <div class="gallery-item" data-delay="200">
-          <img src="image/perorima_05.png" alt="兎味ペロリナ">
-        </div>
-      </div>
     </div>
   </section>
 
@@ -1421,16 +1413,16 @@
     <div class="container">
       <div class="section-header">
         <p class="section-label">RESULTS</p>
-        <h2 class="section-title">WAVE 結果</h2>
+        <h2 class="section-title">結果</h2>
         <div class="divider-cross"></div>
-        <p class="section-desc">各WAVEの結果記事はタグで自動表示されます</p>
+        <p class="section-desc">結果記事はタグで自動表示されます</p>
       </div>
 
       <div class="hm-accordion" id="wave-accordion">
 
         <div class="hm-accordion-item" data-wave="1">
           <button class="hm-accordion-header" onclick="hmToggle(this)">
-            <span>WAVE 1</span>
+            <span>第一の騎士達～WAVE1～</span>
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
@@ -1440,7 +1432,7 @@
 
         <div class="hm-accordion-item" data-wave="2">
           <button class="hm-accordion-header" onclick="hmToggle(this)">
-            <span>WAVE 2</span>
+            <span>第二の騎士達～WAVE2～</span>
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
@@ -1450,7 +1442,7 @@
 
         <div class="hm-accordion-item" data-wave="3">
           <button class="hm-accordion-header" onclick="hmToggle(this)">
-            <span>WAVE 3</span>
+            <span>第三の騎士達～WAVE3～</span>
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
@@ -1460,7 +1452,7 @@
 
         <div class="hm-accordion-item" data-wave="4">
           <button class="hm-accordion-header" onclick="hmToggle(this)">
-            <span>WAVE 4</span>
+            <span>第四の騎士達～WAVE4～</span>
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
@@ -1470,7 +1462,7 @@
 
         <div class="hm-accordion-item" data-wave="5">
           <button class="hm-accordion-header" onclick="hmToggle(this)">
-            <span>WAVE 5</span>
+            <span>第五の騎士達～WAVE5～</span>
             <span class="hm-accordion-icon">▼</span>
           </button>
           <div class="hm-accordion-body">
@@ -1496,7 +1488,7 @@
         <p class="section-label" style="color: #e06060; letter-spacing: 6px;">THE FINAL JUDGEMENT</p>
         <h2 class="section-title" style="color: #ff7070; text-shadow: 0 0 40px rgba(192,57,43,0.6);">最後の審判<br><span style="font-size:0.5em; letter-spacing:5px; color: #f0f0f0;">進出店舗</span></h2>
         <div class="divider-cross" style="background: rgba(192,57,43,0.65);"></div>
-        <p class="section-desc" style="color: #f0f0f0;">各WAVEの頂点に立った強者たちが、最後の審判へ挑む</p>
+        <p class="section-desc" style="color: #f0f0f0;">6/13、6/14開催「最後の審判」への進出店舗</p>
       </div>
 
       <div class="finalist-box">
